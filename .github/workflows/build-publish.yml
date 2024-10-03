@@ -3,16 +3,13 @@ on: push
 
 permissions:
   id-token: write
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       OIDC_AUDIENCE: 'jfrog-github'
       OIDC_PROVIDER: 'github'
-      PLATFORM_REPO: 'eks-npm'
-
+      
     steps:
       - name: Get id token
         run: |
