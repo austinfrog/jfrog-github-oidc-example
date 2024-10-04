@@ -30,6 +30,6 @@ jobs:
     - name: Docker Login Artifactory
       uses: docker/login-action@v3
       with:
-          registry: ${{ env.ARTIFACTORY_HOST }}
+          registry: jonw123test.jfrog.io
           username: austinf
           password: ${{ env.ACCESS_TOKEN }}
