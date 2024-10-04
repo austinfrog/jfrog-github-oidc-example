@@ -30,6 +30,6 @@ jobs:
           
       - name: docker login
         env:
-          ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+          ID_TOKEN: ${{ env.ACCESS_TOKEN }}
         run: |
-          docker login jonw123test.jfrog.io --username austinf --password "${{ACCESS_TOKEN}}"
+          docker login jonw123test.jfrog.io --username austinf --password $ID_TOKEN
