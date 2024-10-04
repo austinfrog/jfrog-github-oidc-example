@@ -20,7 +20,7 @@ jobs:
         env:
           ID_TOKEN: ${{ env.ID_TOKEN }}
         run: |
-          ACCESS_TOKEN=$(curl \
+          echo ACCESS_TOKEN=$(curl \
           -X POST \
           -H "Content-type: application/json" \
           https://jonw123test.jfrog.io/access/api/v1/oidc/token \
