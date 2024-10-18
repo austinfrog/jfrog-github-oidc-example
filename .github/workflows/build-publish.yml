@@ -17,7 +17,6 @@ jobs:
           "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=jfrog-github" | jq .value | tr -d '"')
           echo "ID_TOKEN=${ID_TOKEN}" >> $GITHUB_ENV
 
-
     
     - name: Exchange
       env:
