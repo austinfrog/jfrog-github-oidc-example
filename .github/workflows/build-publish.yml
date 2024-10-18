@@ -31,4 +31,4 @@ jobs:
       env:
           ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
       run: |
-          curl -H "Authorization: Bearer $ACCESS_TOKEN" https://jonw123test.jfrog.io/artifactory/api/npm/npm-remote-test1/react
+          curl -H "Authorization: Bearer $ACCESS_TOKEN" https://jonw123test.jfrog.io/artifactory/api/npm/npm-remote/react
