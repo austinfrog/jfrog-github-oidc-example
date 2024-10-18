@@ -29,4 +29,4 @@ jobs:
     
     - name: simple curl 
       run: |
-          curl -H"Authorizaiton: Bearer ${{ env.ACCESS_TOKEN }}" https://jonw123test.jfrog.io/artifactory/api/npm/cargo-npm-remote/react
+          curl -H "Authorization: Bearer ${{ env.ACCESS_TOKEN }}" https://jonw123test.jfrog.io/artifactory/api/npm/cargo-npm-remote/react
