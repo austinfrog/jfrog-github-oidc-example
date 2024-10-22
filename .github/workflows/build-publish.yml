@@ -10,7 +10,6 @@ jobs:
      env:
       OIDC_AUDIENCE: 'jfrog-github'
       OIDC_PROVIDER: 'github'
-      PLATFORM_REPO: 'npm-rem'
      defaults:
       run:
         working-directory: ./package
