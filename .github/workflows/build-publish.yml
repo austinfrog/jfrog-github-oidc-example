@@ -24,13 +24,13 @@ jobs:
          uses: jfrog/setup-jfrog-cli@v4
          env:  
            JF_URL: https://jonw123test.jfrog.io
-           JF_PROJECT: 'cargo'
+           # JF_PROJECT: 'cargo'
          with:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
            oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
        - name: Set CLI Config
-         run: jf npm-config --global=true --repo-resolve=npm-rem --repo-deploy=npm-local
+         run: jf npm-config --global=true --repo-resolve=npm-remote --repo-deploy=npm-local
            
        - name: Install Dependencies
          run: jf npm install
