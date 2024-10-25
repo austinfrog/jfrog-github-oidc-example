@@ -27,7 +27,7 @@ jobs:
            JF_PROJECT: 'cargo-npm-remote'
          with:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
-           oidc-audience: ${{ env.OIDC_AUDIENCE }}
+           # oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
        - name: Set CLI Config
          run: jf npm-config --global=true --repo-resolve=npm-remote --repo-deploy=npm-local
