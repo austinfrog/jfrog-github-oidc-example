@@ -31,6 +31,7 @@ jobs:
 
        - name: Set CLI Config
          run: jf npm-config --global=true --repo-resolve=cargo-npm-remote --repo-deploy=npm-local
+
            
        - name: Install Dependencies
          run: jf npm install
