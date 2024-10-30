@@ -4,7 +4,8 @@ on: push
 permissions:
   id-token: write
 
-
+env:
+  JF_PROJECT: 'cargo'
 jobs:
   build:
      runs-on: ubuntu-latest
@@ -25,7 +26,7 @@ jobs:
          uses: jfrog/setup-jfrog-cli@v4
          env:  
            JF_URL: https://jonw123test.jfrog.io
-           JF_PROJECT: 'cargo'
+           
          with:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
            # oidc-audience: ${{ env.OIDC_AUDIENCE }}
