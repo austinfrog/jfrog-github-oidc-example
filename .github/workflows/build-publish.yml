@@ -29,6 +29,7 @@ jobs:
            
          with:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
+           version: latest
            # oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
        - name: Set CLI Config
