@@ -32,10 +32,10 @@ jobs:
            # oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
        - name: Set CLI Config
-         run: jf npm-config --global=true --repo-resolve=cargo-npm-remote --repo-deploy=cargo-npm-local
+         run: jf pipc --global --repo-resolve="cargo-pypi-virtual"
 
-           
-       - name: Install Dependencies
-         run: jf npm install
+       - name: Install Black
+         run: jf pip install black
+
 
        
