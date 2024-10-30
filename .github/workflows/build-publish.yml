@@ -4,8 +4,8 @@ on: push
 permissions:
   id-token: write
 
-# env:
-#   # JF_PROJECT: 'cargo'
+env:
+  JF_PROJECT: 'cargo'
 jobs:
   build:
      runs-on: ubuntu-latest
