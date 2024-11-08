@@ -1,6 +1,7 @@
 name: "JFrog-GitHub NPM Publish OIDC Integration"
 on: push
 
+
 permissions:
   id-token: write
 jobs:
