@@ -32,14 +32,9 @@ jobs:
            version: latest
            # oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
-       - name: Set CLI Config
-         run: jf pipc --global --repo-resolve="cargo-pypi-virtual"
-
        - name: get Access token
-         run: jf atc github/austinfrog
+         run: jf atc token:github/austinfrog
 
-       - name: Install Black
-         run: jf pip install black
 
 
        
