@@ -23,6 +23,7 @@ jobs:
          uses: jfrog/setup-jfrog-cli@v4
          env:  
            JF_URL: https://jonw123test.jfrog.io
+
            
          with:
            oidc-provider-name: ${{ env.OIDC_PROVIDER }}
