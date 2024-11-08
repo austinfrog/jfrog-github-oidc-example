@@ -36,7 +36,7 @@ jobs:
          run: jf pipc --global --repo-resolve="cargo-pypi-virtual"
 
        - name: get Access token
-         run: jf atc 
+         run: jf atc austinf
 
        - name: Install Black
          run: jf pip install black
