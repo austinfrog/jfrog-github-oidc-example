@@ -3,9 +3,6 @@ on: push
 
 permissions:
   id-token: write
-
-env:
-  JF_PROJECT: 'cargo'
 jobs:
   build:
      runs-on: ubuntu-latest
@@ -33,7 +30,7 @@ jobs:
            # oidc-audience: ${{ env.OIDC_AUDIENCE }}
 
        - name: get Access token
-         run: jf atc token:github/austinfrog
+         run: jf atc 
 
 
 
