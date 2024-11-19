@@ -39,13 +39,17 @@ jobs:
       run: |
           echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
           echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
+          echo "${{ steps.setup-jfrog-cli.outputs.oidc-token }}" > debug_oidc_token.txt
+          echo "OIDC Token written to debug_oidc_token.txt"
 
     
-    # - name: simple curl 
-    #   env:
-    #       ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
-    #   run: |
-    #       curl -H "Authorization: Bearer $ACCESS_TOKEN" https://jonw123test.jfrog.io/artifactory/api/npm/npm-remote/react
+    - name: simple curl 
+      env:
+          ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+      run: |
+          curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST https://jonw123test.jfrog.io/artifactory/generic-local -T debug_oidc_token.txt
+
+    
 
     - name: Set up Python
       uses: actions/setup-python@v2
