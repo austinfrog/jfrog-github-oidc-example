@@ -62,7 +62,9 @@ jobs:
       run: |
           cd dummy_package
           pip install --upgrade twine  # Ensure Twine is installed
-          twine upload --repository-url https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local dist/* --token ${{ steps.setup-jfrog-cli.outputs.oidc-token }}
+          echo "TWINE_USERNAME=${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> $GITHUB_ENV
+          echo "TWINE_PASSWORD=${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> $GITHUB_ENV
+          twine upload --repository-url https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local dist/* 
 
 
        
