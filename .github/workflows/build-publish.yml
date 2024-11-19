@@ -28,6 +28,7 @@ jobs:
           echo "ACCESS_TOKEN=${ACCESS_TOKEN}" >> $GITHUB_ENV
 
     - name: setup-jfrog-cli
+      id: setup-jfrog-cli
       uses: jfrog/setup-jfrog-cli@v4
       env:
        JF_URL: https://jonw123test.jfrog.io/
