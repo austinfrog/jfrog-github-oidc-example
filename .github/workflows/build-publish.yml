@@ -33,6 +33,12 @@ jobs:
        JF_URL: https://jonw123test.jfrog.io/
       with:
        oidc-provider-name: github
+
+    - name: Show OIDC Outputs
+      run: |
+          echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
+          echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
+
     
     # - name: simple curl 
     #   env:
