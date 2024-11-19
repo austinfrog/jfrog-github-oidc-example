@@ -39,7 +39,7 @@ jobs:
       run: |
           echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
           echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
-          echo "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> debug_oidc_token.txt
+          echo -n "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> debug_oidc_token.txt
           echo "OIDC Token written to debug_oidc_token.txt"
 
     
@@ -74,8 +74,8 @@ jobs:
       run: |
           cd dummy_package
           pip install --upgrade twine  # Ensure Twine is installed
-          echo "TWINE_USERNAME=${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> $GITHUB_ENV
-          echo "TWINE_PASSWORD=${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> $GITHUB_ENV
+          echo -n "TWINE_USERNAME=${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> $GITHUB_ENV
+          echo -n "TWINE_PASSWORD=${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> $GITHUB_ENV
           twine upload --repository-url https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local dist/*
 
 
