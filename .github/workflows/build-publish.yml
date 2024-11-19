@@ -47,7 +47,7 @@ jobs:
       env:
           ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
       run: |
-          curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPOST https://jonw123test.jfrog.io/artifactory/generic-local -T debug_oidc_token.txt
+          curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPUT https://jonw123test.jfrog.io/artifactory/generic-local/debug.txt -T debug_oidc_token.txt
 
     
 
