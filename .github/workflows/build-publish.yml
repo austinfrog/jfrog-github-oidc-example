@@ -35,73 +35,27 @@ jobs:
       with:
        oidc-provider-name: github
 
-    - name: Show OIDC Outputs
-      run: |
-          echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
-          echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
-          echo -n "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> debug_oidc_token.txt
-          echo "OIDC Token written to debug_oidc_token.txt"
+    # - name: Show OIDC Outputs
+    #   run: |
+    #       echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
+    #       echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
+    #       echo -n "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> debug_oidc_token.txt
+    #       echo "OIDC Token written to debug_oidc_token.txt"
 
     
-    - name: simple curl 
-      env:
-          ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+    # - name: simple curl 
+    #   env:
+    #       ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+    #   run: |
+    #       curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPUT https://jonw123test.jfrog.io/artifactory/generic-local/debug.txt -T debug_oidc_token.txt
+
+    - name: Install Wheel
       run: |
-          curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPUT https://jonw123test.jfrog.io/artifactory/generic-local/debug.txt -T debug_oidc_token.txt
-
-    
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-          python-version: '3.8'  # Specify the Python version you want to use\
-
-profile
-GPT-4o-mini 6:25 pm
-If you prefer to use the setup.py command along with the -r option to specify a repository instead of using twine, you can do so by adjusting your GitHub Actions workflow accordingly. However, keep in mind that the standard distutils and setuptools commands are somewhat deprecated for uploading packages to PyPI and may lack some features of twine, such as better handling of packages or more detailed error messages.
-
-Setting Up Your GitHub Actions Workflow
-Here’s how to structure your GitHub Actions pipeline to use python setup.py sdist upload -r local for uploading a package to JFrog Artifactory:
-
-Edit the .pypirc File : You still need a .pypirc configuration file that specifies your repository and credentials.
-Use the setup.py upload Command : The upload is done in a step after your package has been built.
-Example GitHub Actions Workflow
-Here’s an example workflow that incorporates these changes:
-
-yaml
-Copy Code
-name: Publish Dummy Package
-
-on:
-  push:
-    branches:
-      - main  # Specify your target branch
-
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Setup JFrog CLI
-        id: setup-jfrog-cli
-        uses: jfrog/setup-jfrog-cli@v4
-        env:
-          JF_URL: https://jonw123test.jfrog.io/
-        with:
-          oidc-provider-name: github
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'  # Specify Python version
-
-      - name: Install Wheel
-        run: |
           python -m pip install --upgrade pip  # Upgrade pip
           pip install wheel  # Install the wheel package
 
-      - name: Create Dummy Package
-        run: |
+    - name: Create Dummy Package
+      run: |
           mkdir dummy_package
           echo "from setuptools import setup" > dummy_package/setup.py
           echo "setup(name='dummy-package', version='0.1.0')" >> dummy_package/setup.py
@@ -109,8 +63,8 @@ jobs:
           cd dummy_package
           python setup.py sdist  # Create the source distribution
 
-      - name: Write .pypirc
-        run: |
+    - name: Write .pypirc
+      run: |
           echo "[distutils]" > ~/.pypirc
           echo "index-servers =" >> ~/.pypirc
           echo "    local" >> ~/.pypirc
@@ -119,8 +73,8 @@ jobs:
           echo "username: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> ~/.pypirc
           echo "password: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> ~/.pypirc
 
-      - name: Upload Dummy Package
-        run: |
+    - name: Upload Dummy Package
+      run: |
           cd dummy_package
           python setup.py sdist upload -r local  # Upload the package to the repository defined in .pypirc
 
