@@ -39,7 +39,7 @@ jobs:
       run: |
           echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
           echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
-          echo "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" > debug_oidc_token.txt
+          echo "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> debug_oidc_token.txt
           echo "OIDC Token written to debug_oidc_token.txt"
 
     
