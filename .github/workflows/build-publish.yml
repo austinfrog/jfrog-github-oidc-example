@@ -33,11 +33,11 @@ jobs:
       with:
        oidc-provider-name: github
     
-    - name: simple curl 
-      env:
-          ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
-      run: |
-          curl -H "Authorization: Bearer $ACCESS_TOKEN" https://jonw123test.jfrog.io/artifactory/api/npm/npm-remote/react
+    # - name: simple curl 
+    #   env:
+    #       ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+    #   run: |
+    #       curl -H "Authorization: Bearer $ACCESS_TOKEN" https://jonw123test.jfrog.io/artifactory/api/npm/npm-remote/react
 
     - name: Set up Python
       uses: actions/setup-python@v2
