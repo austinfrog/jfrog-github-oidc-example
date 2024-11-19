@@ -39,15 +39,15 @@ jobs:
       run: |
           echo "OIDC User: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}"
           echo "OIDC Token: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}"
-          # echo "${{ steps.setup-jfrog-cli.outputs.oidc-token }}" > debug_oidc_token.txt
-          # echo "OIDC Token written to debug_oidc_token.txt"
+          echo "${{ steps.setup-jfrog-cli.outputs.oidc-user }}" > debug_oidc_token.txt
+          echo "OIDC Token written to debug_oidc_token.txt"
 
     
-    # - name: simple curl 
-    #   env:
-    #       ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
-    #   run: |
-    #       curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPUT https://jonw123test.jfrog.io/artifactory/generic-local/debug.txt -T debug_oidc_token.txt
+    - name: simple curl 
+      env:
+          ACCESS_TOKEN: ${{ env.ACCESS_TOKEN }}
+      run: |
+          curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPUT https://jonw123test.jfrog.io/artifactory/generic-local/debug.txt -T debug_oidc_token.txt
 
     
 
