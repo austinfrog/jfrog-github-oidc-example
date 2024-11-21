@@ -94,7 +94,7 @@ jobs:
           echo "setup(name='dummy-package', version='0.1.0')" >> dummy_package/setup.py
           echo "# Dummy package" > dummy_package/__init__.py
           cd dummy_package
-          uv build setup.py  # Hypothetical command to build with uv
+          uv build setup.py --wheel 
 
     - name: Write .pypirc
       run: |
