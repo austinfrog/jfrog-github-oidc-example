@@ -86,19 +86,20 @@ jobs:
     - name: Create Virtual Environment
       run: |
           python -m venv venv
+          echo "Activated Venv" >> $GITHUB_ENV
           source venv/bin/activate
+          echo "$GITHUB_ENV" >> $GITHUB_ENV
 
     - name: Install Wheel
       run: |
-          source venv/bin/activate
+          source venv/bin/activate  # Activate the virtual environment
           uv pip install wheel  # Install the wheel package using uv
 
     - name: Create Dummy Package
       run: |
-          mkdir dummy_package
+          mkdir -p dummy_package/dummy_package  # Create nested directories
           echo "from setuptools import setup" > dummy_package/setup.py
           echo "setup(name='dummy-package', version='0.1.0', packages=['dummy_package'])" >> dummy_package/setup.py
-          mkdir dummy_package/dummy_package  # Create the package directory
           echo "# Dummy package" > dummy_package/dummy_package/__init__.py  # Create __init__.py inside the package directory
           cd dummy_package
           uv build setup.py --wheel  # Build the wheel
@@ -117,6 +118,8 @@ jobs:
       run: |
           cd dummy_package
           uv pip upload setup.py -r local
+
+    
 
 
        
