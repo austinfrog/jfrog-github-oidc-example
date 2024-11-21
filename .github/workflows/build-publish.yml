@@ -93,48 +93,10 @@ jobs:
           source venv/bin/activate  # Activate the virtual environment
           uv pip install wheel  # Install the wheel package using uv
 
-    - name: Create Dummy Package with pyproject.toml
+    - name: Upload Wheel File
       run: |
-          mkdir -p dummy_package  # Create a directory for the package
-          
-          # Create pyproject.toml file
-           cat <<EOL > dummy_package/pyproject.toml
-           [build-system]
-            requires = ["setuptools", "wheel"]
-           build-backend = "setuptools.build_meta"
-
-          [project]
-          name = "dummy-package"
-          version = "0.1.0"
-          description = "A dummy package for testing purposes"
-          authors = [
-    {name = "Your Name", email = "your.email@example.com"},
-         ]
-EOL
-
-          # Create __init__.py to make it a package
-          mkdir -p dummy_package/dummy_package  # Create nested directories
-          touch dummy_package/dummy_package/__init__.py  # Create __init__.py
-
-      - name: Build the Package
-        run: |
-          cd dummy_package
-          uv build . --wheel  # Build the wheel using uv
-
-      - name: Write .pypirc
-        run: |
-          echo "[distutils]" > ~/.pypirc
-          echo "index-servers =" >> ~/.pypirc
-          echo "    local" >> ~/.pypirc
-          echo "[local]" >> ~/.pypirc
-          echo "repository: https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local" >> ~/.pypirc
-          echo "username: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> ~/.pypirc
-          echo "password: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> ~/.pypirc
-
-      - name: Upload Dummy Package
-        run: |
-          cd dummy_package
-          uv pip upload dummy-package-0.1.0-py3-none-any.whl -r local
+          source venv/bin/activate  # Activate the virtual environment again
+          uv pip upload arrow-1.3.0-py3-none-any.whl -r local
 
 
        
