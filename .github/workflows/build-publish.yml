@@ -85,16 +85,17 @@ jobs:
 
     - name: Install Wheel
       run: |
-          pip install wheel  # Install the wheel package using uv
+          uv pip install wheel  # Install the wheel package using uv
 
     - name: Create Dummy Package
       run: |
           mkdir dummy_package
           echo "from setuptools import setup" > dummy_package/setup.py
-          echo "setup(name='dummy-package', version='0.1.0')" >> dummy_package/setup.py
-          echo "# Dummy package" > dummy_package/__init__.py
+          echo "setup(name='dummy-package', version='0.1.0', packages=['dummy_package'])" >> dummy_package/setup.py
+          mkdir dummy_package/dummy_package  # Create the package directory
+          echo "# Dummy package" > dummy_package/dummy_package/__init__.py  # Create __init__.py inside the package directory
           cd dummy_package
-          uv build setup.py --wheel 
+          uv build setup.py --wheel  # Add --wheel to build the wheel
 
     - name: Write .pypirc
       run: |
@@ -109,7 +110,7 @@ jobs:
     - name: Upload Dummy Package
       run: |
           cd dummy_package
-          uv upload setup.py -r local  # Hypothetical command to upload the package using uv
+          uv pip upload setup.py -r local  # Hypothetical command to upload the package using uv
 
 
        
