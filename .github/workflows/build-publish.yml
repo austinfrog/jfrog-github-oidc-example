@@ -85,7 +85,7 @@ jobs:
 
     - name: Install Wheel
       run: |
-          uv pip install wheel  # Install the wheel package using uv
+          uv pip install wheel --system # Install the wheel package using uv
 
     - name: Create Dummy Package
       run: |
