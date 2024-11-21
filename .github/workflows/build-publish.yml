@@ -86,26 +86,43 @@ jobs:
     - name: Create Virtual Environment
       run: |
           python -m venv venv
-          echo "VENV activated"  # Just a debug message; doesn't actually change the environment
           source venv/bin/activate  # Activate the virtual environment
-          # Persist the activation for future steps; no need for setting an env variable here directly
 
     - name: Install Wheel
       run: |
           source venv/bin/activate  # Activate the virtual environment
           uv pip install wheel  # Install the wheel package using uv
 
-    - name: Create Dummy Package
+    - name: Create Dummy Package with pyproject.toml
       run: |
-          mkdir -p dummy_package/dummy_package  # Create nested directories
-          echo "from setuptools import setup" > dummy_package/setup.py
-          echo "setup(name='dummy-package', version='0.1.0', packages=['dummy_package'])" >> dummy_package/setup.py
-          echo "# Dummy package" > dummy_package/dummy_package/__init__.py  # Create __init__.py inside the package directory
-          cd dummy_package
-          uv build setup.py --wheel  # Build the wheel
+          mkdir -p dummy_package  # Create a directory for the package
+          
+          # Create pyproject.toml file
+           cat <<EOL > dummy_package/pyproject.toml
+           [build-system]
+            requires = ["setuptools", "wheel"]
+           build-backend = "setuptools.build_meta"
 
-    - name: Write .pypirc
-      run: |
+          [project]
+          name = "dummy-package"
+          version = "0.1.0"
+          description = "A dummy package for testing purposes"
+          authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+         ]
+EOL
+
+          # Create __init__.py to make it a package
+          mkdir -p dummy_package/dummy_package  # Create nested directories
+          touch dummy_package/dummy_package/__init__.py  # Create __init__.py
+
+      - name: Build the Package
+        run: |
+          cd dummy_package
+          uv build . --wheel  # Build the wheel using uv
+
+      - name: Write .pypirc
+        run: |
           echo "[distutils]" > ~/.pypirc
           echo "index-servers =" >> ~/.pypirc
           echo "    local" >> ~/.pypirc
@@ -114,12 +131,10 @@ jobs:
           echo "username: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> ~/.pypirc
           echo "password: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> ~/.pypirc
 
-    - name: Upload Dummy Package
-      run: |
+      - name: Upload Dummy Package
+        run: |
           cd dummy_package
-          uv pip upload setup.py -r local 
-
-
+          uv pip upload dummy-package-0.1.0-py3-none-any.whl -r local
 
 
        
