@@ -86,9 +86,9 @@ jobs:
     - name: Create Virtual Environment
       run: |
           python -m venv venv
-          echo "Activated Venv" >> $GITHUB_ENV
-          source venv/bin/activate
-          echo "$GITHUB_ENV" >> $GITHUB_ENV
+          echo "VENV activated"  # Just a debug message; doesn't actually change the environment
+          source venv/bin/activate  # Activate the virtual environment
+          # Persist the activation for future steps; no need for setting an env variable here directly
 
     - name: Install Wheel
       run: |
@@ -117,9 +117,9 @@ jobs:
     - name: Upload Dummy Package
       run: |
           cd dummy_package
-          uv pip upload setup.py -r local
+          uv pip upload setup.py -r local 
 
-    
+
 
 
        
