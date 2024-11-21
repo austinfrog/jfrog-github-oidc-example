@@ -49,10 +49,43 @@ jobs:
     #   run: |
     #       curl -H "Authorization: Bearer $ACCESS_TOKEN" -XPUT https://jonw123test.jfrog.io/artifactory/generic-local/debug.txt -T debug_oidc_token.txt
 
+    # - name: Install Wheel
+    #   run: |
+    #       python -m pip install --upgrade pip  # Upgrade pip
+    #       pip install wheel  # Install the wheel package
+
+    # - name: Create Dummy Package
+    #   run: |
+    #       mkdir dummy_package
+    #       echo "from setuptools import setup" > dummy_package/setup.py
+    #       echo "setup(name='dummy-package', version='0.1.0')" >> dummy_package/setup.py
+    #       echo "# Dummy package" > dummy_package/__init__.py
+    #       cd dummy_package
+    #       python setup.py sdist  # Create the source distribution
+
+    # - name: Write .pypirc
+    #   run: |
+    #       echo "[distutils]" > ~/.pypirc
+    #       echo "index-servers =" >> ~/.pypirc
+    #       echo "    local" >> ~/.pypirc
+    #       echo "[local]" >> ~/.pypirc
+    #       echo "repository: https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local" >> ~/.pypirc
+    #       echo "username: ${{ steps.setup-jfrog-cli.outputs.oidc-user }}" >> ~/.pypirc
+    #       echo "password: ${{ steps.setup-jfrog-cli.outputs.oidc-token }}" >> ~/.pypirc
+
+    # - name: Upload Dummy Package
+    #   run: |
+    #       cd dummy_package
+    #       python setup.py sdist upload -r local  # Upload the package to the repository defined in .pypirc
+
+    - name: Install UV
+      run: |
+          python -m pip install --upgrade pip  # Upgrade pip if needed
+          pip install uv  # Install the uv package
+
     - name: Install Wheel
       run: |
-          python -m pip install --upgrade pip  # Upgrade pip
-          pip install wheel  # Install the wheel package
+          uv install wheel  # Install the wheel package using uv
 
     - name: Create Dummy Package
       run: |
@@ -61,7 +94,7 @@ jobs:
           echo "setup(name='dummy-package', version='0.1.0')" >> dummy_package/setup.py
           echo "# Dummy package" > dummy_package/__init__.py
           cd dummy_package
-          python setup.py sdist  # Create the source distribution
+          uv build setup.py  # Hypothetical command to build with uv
 
     - name: Write .pypirc
       run: |
@@ -76,7 +109,7 @@ jobs:
     - name: Upload Dummy Package
       run: |
           cd dummy_package
-          python setup.py sdist upload -r local  # Upload the package to the repository defined in .pypirc
+          uv upload setup.py -r local  # Hypothetical command to upload the package using uv
 
 
        
