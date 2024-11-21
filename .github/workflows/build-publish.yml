@@ -102,7 +102,7 @@ jobs:
 
     - name: Upload Wheel File
       run: |
-          uv publish arrow-1.3.0-py3-none-any.whl --publish-url https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local --token ${{ steps.setup-jfrog-cli.outputs.oidc-token }}
+          uv publish arrow-1.3.0-py3-none-any.whl --publish-url https://jonw123test.jfrog.io/artifactory/api/pypi/pypi-local --username ${{ steps.setup-jfrog-cli.outputs.oidc-user }} --password ${{ steps.setup-jfrog-cli.outputs.oidc-token }}
 
 
        
