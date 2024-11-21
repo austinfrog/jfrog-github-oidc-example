@@ -78,14 +78,20 @@ jobs:
     #       cd dummy_package
     #       python setup.py sdist upload -r local  # Upload the package to the repository defined in .pypirc
 
-    - name: Install UV
+    - name: Set Up Python Environment
       run: |
-          python -m pip install --upgrade pip  # Upgrade pip if needed
+          python -m pip install --upgrade pip  # Upgrade pip
           pip install uv  # Install the uv package
+
+    - name: Create Virtual Environment
+      run: |
+          python -m venv venv
+          source venv/bin/activate
 
     - name: Install Wheel
       run: |
-          uv pip install wheel --system # Install the wheel package using uv
+          source venv/bin/activate
+          uv pip install wheel  # Install the wheel package using uv
 
     - name: Create Dummy Package
       run: |
@@ -95,7 +101,7 @@ jobs:
           mkdir dummy_package/dummy_package  # Create the package directory
           echo "# Dummy package" > dummy_package/dummy_package/__init__.py  # Create __init__.py inside the package directory
           cd dummy_package
-          uv build setup.py --wheel  # Add --wheel to build the wheel
+          uv build setup.py --wheel  # Build the wheel
 
     - name: Write .pypirc
       run: |
@@ -110,7 +116,7 @@ jobs:
     - name: Upload Dummy Package
       run: |
           cd dummy_package
-          uv pip upload setup.py -r local  # Hypothetical command to upload the package using uv
+          uv pip upload setup.py -r local
 
 
        
